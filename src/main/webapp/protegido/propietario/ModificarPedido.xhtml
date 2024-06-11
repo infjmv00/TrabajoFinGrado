@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">
+            <p:growl id="msgs35" showDetail="true"/>
+            <div class="card">
+                <h5>Row Editing</h5>
+                <p:dataTable id="products30" var="pedido" value="#{modificarPedidoController.listaPedidos}" editable="true" style="margin-bottom:20px">
+                    <p:ajax event="rowEdit" listener="#{modificarPedidoController.onRowEdit}" update=":form:msgs35"/>
+                    <p:ajax event="rowEditCancel" listener="#{modificarPresupuestoController.onRowCancel}" update=":form:msgs35"/>
+
+                    <p:column headerText="ID PEDIDO">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{pedido.idPedido}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText id="modelInput" value="#{pedido.idPedido}" style="width:100%"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Producto">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{pedido.material.codigo_material}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{pedido.material.codigo_material}" style="width:100%" label="Producto"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Fecha de pedido">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{pedido.fecha}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                               
+                        <p:outputLabel for="fechaPedido" value="Fecha de pedido:" />
+                        <p:calendar id="fechaPedido" value="#{pedido.fecha}" required="true" pattern="dd/MM/yyyy"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    <p:column headerText="Activo">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{pedido.activo}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectBooleanCheckbox value="#{pedido.activo}" itemLabel="Pedido activo"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="pedido Finalizado">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{pedido.finalizado}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectBooleanCheckbox value="#{pedido.finalizado}" itemLabel="Pedido finalizado"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                   
+                    <p:column style="width:6rem">
+                        <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+                    </p:column>
+                    <!-- Definimos el cuadro de diálogo fuera del dataTable -->
+           
+                </p:dataTable>
+            </div>
+        
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            
+        </p:confirmDialog>
+        </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

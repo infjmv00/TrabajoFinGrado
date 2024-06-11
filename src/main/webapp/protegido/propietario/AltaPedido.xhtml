@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/template/plantilla.xhtml">
+
+            <ui:define name="content">
+                
+                <h1>Alta de pedidos</h1>
+                 <div class="card">
+        <h:form id="pedidoForm">
+            <p:messages id="messages" showDetail="true" closable="true"/>
+            
+            <p:fieldset legend="Datos del pedido">
+                
+                    
+                
+                <p:panelGrid columns="2">
+                    
+                    
+                    <p:outputLabel for="fechaPedido" value="Fecha de pedido:" />
+                    <p:calendar id="fechaPedido" value="#{altaPedidoController.pedido.fecha}" pattern="dd/MM/yyyy"/>
+                    
+                    <div class="field col-12 md:col-4">
+                    <p:outputLabel for ="cboMaterial" value="Material"/>
+                    <p:selectOneMenu id="cboMaterial" value="#{altaPedidoController.material.idMaterial}">
+                        <f:selectItems value="#{altaPedidoController.listaMateriales}" var="mat" itemLabel="#{mat.codigo_material}" itemValue="#{mat.idMaterial}" />
+                    </p:selectOneMenu>
+                    
+
+                    </div>
+                    
+                    <p:outputLabel for="unidadesPedido" value="Unidades:" />                    
+                    <p:inputText id="unidadesPedido" value="#{altaPedidoController.pedido.unidades}" required="true" />
+                    
+                    
+
+                    
+                    <p:selectBooleanCheckbox value="#{altaPedidoController.pedido.activo}" itemLabel="Activo"/>
+                    
+                   
+
+                    <p:selectBooleanCheckbox value="#{altaPedidoController.pedido.finalizado}" itemLabel="Pedido finalizado"/>
+                    
+                    
+                    <div class="field col-12 md:col-4">
+                    <p:outputLabel for ="cboProveedor" value="Proveedor"/>
+                    <p:selectOneMenu id="cboProveedor" value="#{altaPedidoController.proveedor.idProveedor}">
+                        <f:selectItems value="#{altaPedidoController.listaProveedores}" var="pro" itemLabel="#{pro.nombreprov}" itemValue="#{pro.idProveedor}" />
+                    </p:selectOneMenu>
+
+
+                    </div>
+                    
+                   
+
+                    
+                </p:panelGrid>
+                <p:commandButton value="Insertar pedido" actionListener="#{altaPedidoController.insertarPedido()}" update="pedidoForm"/>
+            </p:fieldset>
+            
+          
+        </h:form>
+    </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
